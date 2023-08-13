@@ -37,7 +37,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категории'
         verbose_name_plural = 'Категории'
-
         ordering = ['id']
 
 
