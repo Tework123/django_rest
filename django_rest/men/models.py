@@ -6,7 +6,7 @@ class Men(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')
     slug = models.SlugField(max_length=100, unique=True, db_index=True, verbose_name='URL', null=True)
     content = models.TextField(blank=True)
-    photo = models.ImageField(upload_to='photos/')
+    # photo = models.ImageField(upload_to='photos/')
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)

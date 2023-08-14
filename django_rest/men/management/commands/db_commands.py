@@ -13,20 +13,20 @@ class Command(BaseCommand):
         fake = Faker()
 
         categories = ['cs', 'dota', 'warcraft']
-        categories_objects = []
+        categories_objects = [1, 2, 3]
         for i in categories:
             object = Category.objects.create(name=i)
-            categories_objects.append(object)
+            # categories_objects.append(object)
 
         mens = ['dendi', 'happy', 'foggy', 'simons', 'miracle']
-        mens_objects = []
+        mens_objects = [1, 2, 3, 4, 5]
         for i in mens:
             object = Men.objects.create(title=i, content=i,
-                                        category=random.choices(categories_objects, k=1)[0])
+                                        category_id=random.choices(categories_objects, k=1)[0])
 
-            mens_objects.append(object)
+            # mens_objects.append(object)
 
         for i in range(20):
-            object = Message.objects.create(text=fake.name(), men=random.choices(mens_objects, k=1)[0])
+            object = Message.objects.create(text=fake.name(), men_id=random.choices(mens_objects, k=1)[0])
 
         print('***Commands complete***')
