@@ -35,7 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+
     'men.apps.MenConfig',
 ]
 
@@ -125,7 +129,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        # надо коментить нижнюю строку
+        # надо коментить нижнюю строку чтобы убрать графический апи
         'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
+    ],
+    # здесь по умолчанию ко всем данным не нужна авторизация, но можно AllowAny менятьчё
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+
+    ],
+    # разрешаем аутентификацию по токенам
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }

@@ -8,6 +8,9 @@ from men.models import Men
 
 
 class MenSerializer(serializers.ModelSerializer):
+    # когда юзер добавляет запись, она автоматически связывается с ним(граф интерфейс)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Men
         # поля, которые возвращаются
