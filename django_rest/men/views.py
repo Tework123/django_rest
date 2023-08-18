@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,6 +11,12 @@ from rest_framework.views import APIView
 from men.models import Men, Category, Message
 from men.permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from men.serializers import MenSerializer
+
+
+class ListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 
 # class MenView(generics.ListAPIView):
@@ -36,9 +43,11 @@ from men.serializers import MenSerializer
 class MenViewList(generics.ListCreateAPIView):
     queryset = Men.objects.all()
     serializer_class = MenSerializer
+    pagination_class = ListPagination
     # permission_classes = (IsAuthenticatedOrReadOnly,)
+
     # только по токенам можно получить доступ
-    authentication_classes = (TokenAuthentication,)
+    # authentication_classes = (TokenAuthentication,)
 
 
 # # заменяет patch и put
@@ -51,6 +60,8 @@ class MenViewList(generics.ListCreateAPIView):
 class MenViewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Men.objects.all()
     serializer_class = MenSerializer
+
+    # права доступа
     permission_classes = (IsAuthenticated,)
     # permission_classes = (IsAdminOrReadOnly, IsOwnerOrReadOnly)
 

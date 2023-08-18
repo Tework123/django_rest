@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.routers import SimpleRouter, Route, DynamicRoute
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from men.views import MenViewList, MenViewDetail
 from rest_framework import routers
@@ -57,6 +58,12 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls')),
     # отвечает за авторизацию по токена, сюда нужно слать их
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+
+
+    # маршруты для авторизации по jwt token
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # path('api/v1/men_list/', MenViewSet.as_view({'get': 'list', })),
     # path('api/v1/men_list/<int:pk>', MenViewSet.as_view({'put': 'update', })),

@@ -129,16 +129,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        # надо коментить нижнюю строку чтобы убрать графический апи
+        # надо коментить нижнюю строку, чтобы убрать графический апи
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 4,
     # здесь по умолчанию ко всем данным не нужна авторизация, но можно AllowAny менятьчё
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
 
     ],
-    # разрешаем аутентификацию по токенам
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # разрешаем аутентификацию по токенам(библиотека djoser)
         'rest_framework.authentication.TokenAuthentication',
+
+        # разрешаем аутентификацию по JWT токенам(библиотека simple jwt)
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ],
 }
